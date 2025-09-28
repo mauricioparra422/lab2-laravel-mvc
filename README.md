@@ -160,13 +160,13 @@ Vite con Laravel
 
 Nombre: Mauricio Parra
 
-Correo: [tu_correo@utp.ac.pa
+Correo: [mauricio.parra@utp.ac.pa
 ]
 
 Curso: Ingeniería Web – UTP
 
 Instructor del Laboratorio: Ing. Irina Fong
 
-Fecha de ejecución: [coloca la fecha]
+Fecha de ejecución: 26-09-2025
 
-Fecha de entrega: [coloca la fecha]
+Fecha de entrega: 28-09-2025

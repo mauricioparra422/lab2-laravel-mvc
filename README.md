@@ -112,13 +112,17 @@ app/Models/User.php – modelo Eloquent para la tabla users.
 
 Capturas incluidas en docs/:
 
-Registro (/register) funcionando
+### Registro
+![Registro](docs/register.jpg)
 
-Login (/login)
+### Login
+![Login](docs/login.jpg)
 
-Dashboard tras autenticación
+### Dashboard
+![Dashboard](docs/dashboard.jpg)
 
-Tablas en phpMyAdmin (users, migrations, etc.)
+### Tablas en phpMyAdmin
+![Tablas phpMyAdmin](docs/tablasphpmyadmin.jpg)
 
 7) Dificultades encontradas y soluciones
 

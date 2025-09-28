@@ -1,61 +1,172 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+Laboratorio #2 – Implementación del Login en Laravel (MVC)
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Repositorio: https://github.com/mauricioparra422/lab2-laravel-mvc
 
-## About Laravel
+Curso: Ingeniería Web – UTP
+Instructor: Ing. Irina Fong
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+Documentación del laboratorio: requisitos, comandos, códigos implementados, resultados y evidencias. (Fase de cierre del Laboratorio #1 / Módulo I, MVC).
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+1) Requisitos previos (Entorno)
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+Tecnologías y versiones utilizadas
 
-## Learning Laravel
+🐘 PHP 8.2.12
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+📦 Composer 2.8.11
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+⚙️ Laravel 12.28.1
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+💻 XAMPP (Apache + MySQL)
 
-## Laravel Sponsors
+📝 VS Code
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+🟢 Node.js + npm (para Vite)
 
-### Premium Partners
+🗄️ MySQL / phpMyAdmin
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+Secuencia de instalación y verificación
 
-## Contributing
+# Verificar herramientas
+php -v
+composer -V
+node -v
+npm -v
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+# Crear proyecto
+# composer create-project laravel/laravel labLaravelLogin7
 
-## Code of Conduct
+cd C:\xampp\htdocs\labLaravelLogin7
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+# Copiar .env y generar key
+copy .env.example .env
+php artisan key:generate
 
-## Security Vulnerabilities
+2) Introducción (MVC + estructura del proyecto)
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+Modelos (app/Models): representan y gestionan los datos (ej.: User).
 
-## License
+Controladores (app/Http/Controllers): reciben la petición HTTP, coordinan la lógica y devuelven vistas/respuestas.
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+Vistas (resources/views): plantillas Blade (ej.: auth/login.blade.php, dashboard.blade.php).
+
+Rutas (routes/web.php): definen endpoints y vinculan rutas con controladores/vistas.
+
+Objetivo del laboratorio: implementar autenticación (registro/login) siguiendo el patrón MVC y dejar una ruta protegida (/dashboard).
+
+3) Flujo de comandos usados (Autenticación)
+
+Instalación de Breeze (login/registro)
+
+composer require laravel/breeze --dev
+php artisan breeze:install blade
+php artisan migrate
+
+
+Assets (Vite)
+
+npm install
+npm run dev   # modo desarrollo
+# npm run build  # producción
+
+
+Servidor de desarrollo
+
+php artisan serve
+# App en: http://127.0.0.1:8000
+
+4) Base de datos (configuración y respaldo)
+
+Configuración en .env:
+
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=lab_mvc
+DB_USERNAME=root
+DB_PASSWORD=
+
+
+Migraciones ejecutadas:
+
+php artisan migrate
+
+
+
+5) Directorios clave (ejemplos)
+
+routes/web.php:
+
+Route::get('/', function(){ return view('welcome'); });
+Route::get('/dashboard', \App\Http\Controllers\DashboardController::class)
+    ->middleware(['auth', 'verified'])->name('dashboard');
+
+
+resources/views/ – vistas Blade (ej.: auth/login.blade.php, dashboard.blade.php).
+
+app/Http/Controllers/ – controladores de Breeze para login/registro.
+
+app/Models/User.php – modelo Eloquent para la tabla users.
+
+6) Evidencias
+
+Capturas incluidas en docs/:
+
+Registro (/register) funcionando
+
+Login (/login)
+
+Dashboard tras autenticación
+
+Tablas en phpMyAdmin (users, migrations, etc.)
+
+7) Dificultades encontradas y soluciones
+
+Compatibilidad de versiones (PHP/Laravel).
+Solución: Se verificó con php -v y composer -V y se usó PHP 8.2.12 con Laravel 12.28.1.
+
+Conexión a la BD (credenciales .env / migraciones).
+Solución: Ajustar .env con DB, usuario y pass, ejecutar php artisan migrate y revisar phpMyAdmin.
+
+CSS no se reflejaba en la página.
+Solución: Ejecutar npm run dev y confirmar @vite(['resources/css/app.css','resources/js/app.js']) en las vistas.
+
+Error “npm no se reconoce” al crear el proyecto.
+Solución: Instalar Node.js LTS y ejecutar npm install + npm run dev.
+
+8) Resultados
+
+Proyecto Laravel funcional con autenticación (Breeze), dashboard protegido y BD MySQL configurada.
+
+Assets compilados correctamente con Vite.
+
+Evidencias y backup SQL incluidos en el repositorio.
+
+9) Conclusiones y Aprendizajes
+
+Este laboratorio permitió comprender el ciclo de vida de una petición en Laravel y el uso del patrón MVC. Se aprendió a configurar correctamente el entorno (PHP, Composer, Node.js, MySQL), instalar Breeze para login y registro, y trabajar con Vite para los estilos.
+
+La práctica fue clave para aplicar la teoría a un proyecto real, enfrentar errores de instalación y configuración, y desarrollar habilidades de resolución de problemas en un entorno de desarrollo moderno.
+
+10) Referencias
+
+Laravel – Documentación oficial
+
+Laravel Breeze – Autenticación simple
+
+Vite con Laravel
+
+11) Información del desarrollador
+
+Nombre: Mauricio Parra
+
+Correo: [tu_correo@utp.ac.pa
+]
+
+Curso: Ingeniería Web – UTP
+
+Instructor del Laboratorio: Ing. Irina Fong
+
+Fecha de ejecución: [coloca la fecha]
+
+Fecha de entrega: [coloca la fecha]
